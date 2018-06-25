@@ -1,0 +1,8 @@
+build
+.tox
+layers
+interfaces
+trusty
+.testrepository
+__pycache__
+.stestr

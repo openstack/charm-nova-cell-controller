@@ -1,0 +1,93 @@
+options:
+  debug:
+    type: boolean
+    default: False
+    description: Enable debug logging.
+  verbose:
+    type: boolean
+    default: False
+    description: Enable verbose logging.
+  use-syslog:
+    type: boolean
+    default: False
+    description: |
+      Setting this to True will allow supporting services to log to syslog.
+  openstack-origin:
+    type: string
+    default: distro
+    description: |
+      Repository from which to install. May be one of the following:
+      distro (default), ppa:somecustom/ppa, a deb url sources entry,
+      or a supported Ubuntu Cloud Archive e.g.
+      .
+      cloud:<series>-<openstack-release>
+      cloud:<series>-<openstack-release>/updates
+      cloud:<series>-<openstack-release>/staging
+      cloud:<series>-<openstack-release>/proposed
+      .
+      See https://wiki.ubuntu.com/OpenStack/CloudArchive for info on which
+      cloud archives are available and supported.
+      .
+      NOTE: updating this setting to a source that is known to provide
+      a later version of OpenStack will trigger a software upgrade unless
+      action-managed-upgrade is set to True.
+  harden:
+    type: string
+    default:
+    description: |
+      Apply system hardening. Supports a space-delimited list of modules
+      to run. Supported modules currently include os, ssh, apache and mysql.
+  nova-alchemy-flags:
+    type: string
+    default:
+    description: |
+      Comma-separated list of key=value sqlalchemy related config flags to be
+      set in nova.conf [database] section.
+  network-manager:
+    type: string
+    default: FlatDHCPManager
+    description: |
+      Network manager for the cloud; supports the following options:
+      .
+        FlatDHCPManager (nova-network) (default)
+        FlatManager (nova-network)
+        Neutron (Full SDN solution)
+      .
+      When using the Neutron option you will most likely want to use
+      the neutron-gateway charm to provide L3 routing and DHCP Services.
+  config-flags:
+    type: string
+    default:
+    description: |
+      Comma-separated list of key=value config flags. These values will be
+      placed in the nova.conf [DEFAULT] section.
+  region:
+    type: string
+    default: RegionOne
+    description: OpenStack Region
+  # Monitoring config
+  nagios_context:
+    type: string
+    default: "juju"
+    description: |
+      Used by the nrpe-external-master subordinate charm.
+      A string that will be prepended to instance name to set the host name
+      in nagios. So for instance the hostname would be something like:
+      .
+        juju-myservice-0
+      .
+      If you're running multiple environments with the same services in them
+      this allows you to differentiate between them.
+  nagios_servicegroups:
+    type: string
+    default: ""
+    description: |
+      A comma-separated list of nagios servicegroups. If left empty, the
+      nagios_context will be used as the servicegroup.
+  cell-name:
+    type: string
+    default: 
+    description: |
+      Name of the compute cell this controller is associated with. If this is
+      left unset or set to api then it is assumed that this controller will be
+      the top level api and cell0 controller.

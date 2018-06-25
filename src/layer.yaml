@@ -1,0 +1,10 @@
+includes:
+  - layer:openstack-api
+  - interface:mysql-shared
+  - interface:rabbitmq
+  - interface:nova-compute
+  - interface:nova-cell
+options:
+  basic:
+    use_venv: true
+    include_system_packages: true
