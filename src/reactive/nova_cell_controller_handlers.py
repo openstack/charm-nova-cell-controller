@@ -90,6 +90,9 @@ def send_compute_data():
     nc.set_region(ncc_ep.get_region()['region'])
     nc.set_volume_data(ncc_ep.get_volume_data()['volume_service'])
     nc.set_ec2_data(ncc_ep.get_ec2_data()['ec2_host'])
+    nc.trigger_remote_restart(
+        restart_key=ncc_ep.get_restart_trigger()['restart_trigger'])
+
 
 @reactive.when('shared-db.available')
 @reactive.when('amqp.available')
