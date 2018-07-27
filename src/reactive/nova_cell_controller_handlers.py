@@ -25,9 +25,7 @@ from charms.reactive.relations import (
 )
 
 from charms.reactive.flags import (
-    is_flag_set,
     set_flag,
-    clear_flag,
 )
 
 # This charm's library contains all of the handler code associated with

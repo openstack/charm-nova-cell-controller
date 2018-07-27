@@ -18,13 +18,9 @@
 from __future__ import absolute_import
 
 import collections
-import subprocess
-
-import charmhelpers.core.hookenv as hookenv
 
 import charms_openstack.charm
 import charms_openstack.adapters
-import charms_openstack.ip as os_ip
 
 PACKAGES = ['nova-conductor']
 NOVA_DIR = '/etc/nova/'
@@ -71,7 +67,7 @@ class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
         ]),
     }
 
-    sync_cmd = ['nova-manage', 'db', 'sync' ,'--local_cell']
+    sync_cmd = ['nova-manage', 'db', 'sync', '--local_cell']
 
     def get_amqp_credentials(self):
         """Provide the default amqp username and vhost as a tuple.
@@ -94,7 +90,6 @@ class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
         :returns [{'database': ...}, ...]: credentials for multiple databases
         """
         return [{'username': 'nova', 'database': 'nova'}]
-
 
     def states_to_check(self, required_relations=None):
         """Override the default states_to_check() for the assess_status
