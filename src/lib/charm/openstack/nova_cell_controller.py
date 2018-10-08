@@ -67,6 +67,8 @@ class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
         ]),
     }
 
+    group = 'nova'
+
     sync_cmd = ['nova-manage', 'db', 'sync', '--local_cell']
 
     def get_amqp_credentials(self):
