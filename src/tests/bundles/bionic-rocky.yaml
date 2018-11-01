@@ -62,32 +62,32 @@ relations:
   - neutron-gateway:juju-info
 applications:
   glance:
-    charm: cs:glance
+    charm: cs:~openstack-charmers-next/glance
     num_units: 1
     options:
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
   keystone:
-    charm: cs:keystone
+    charm: cs:~openstack-charmers-next/keystone
     num_units: 1
     options:
       admin-password: openstack
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
   mysql:
-    charm: cs:percona-cluster
+    charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
   mysql-cell2:
-    charm: cs:percona-cluster
+    charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
   neutron-api:
-    charm: cs:neutron-api
+    charm: cs:~openstack-charmers-next/neutron-api
     num_units: 1
     options:
       flat-network-providers: physnet1
@@ -102,10 +102,10 @@ applications:
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
   neutron-openvswitch:
-    charm: cs:neutron-openvswitch
+    charm: cs:~openstack-charmers-next/neutron-openvswitch
     num_units: 0
   nova-cloud-controller:
-    charm: cs:~gnuoy/nova-cloud-controller-43
+    charm: cs:~openstack-charmers-next/nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
@@ -136,11 +136,11 @@ applications:
     charm: cs:ntp-24
     num_units: 0
   rabbitmq-server-nova:
-    charm: cs:rabbitmq-server
+    charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
   rabbitmq-server-nova-cell2:
-    charm: cs:rabbitmq-server
+    charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
   rabbitmq-server-neutron:
-    charm: cs:rabbitmq-server
+    charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
