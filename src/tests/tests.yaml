@@ -9,5 +9,6 @@ configure:
   - zaza.charm_tests.nova.setup.manage_ssh_key
 gate_bundles:
   - bionic-rocky
+  # - cosmic-rocky  # Pending LP https://bugs.launchpad.net/bugs/1804063
 smoke_bundles:
   - bionic-rocky
