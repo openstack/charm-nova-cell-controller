@@ -22,7 +22,8 @@ tags:
   - openstack
 series:
   - bionic
-  # - cosmic  # Pending LP https://bugs.launchpad.net/bugs/1804063
+  - cosmic
+  - disco
 extra-bindings:
   public:
   admin:
