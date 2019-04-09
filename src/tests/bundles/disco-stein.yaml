@@ -1,4 +1,4 @@
-series: cosmic
+series: disco
 relations:
 - - nova-cloud-controller:nova-cell-api
   - nova-cell-controller-cell2:nova-cell-compute
@@ -108,7 +108,7 @@ applications:
       worker-multiplier: 0.25
       debug: true
   nova-cell-controller-cell2:
-    series: cosmic
+    series: disco
     charm: nova-cell-controller
     num_units: 1
     options:
