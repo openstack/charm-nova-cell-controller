@@ -62,46 +62,46 @@ relations:
   - neutron-gateway:juju-info
 applications:
   glance:
-    charm: cs:~openstack-charmers-next/glance
+    charm: cs:glance
     num_units: 1
     options:
       worker-multiplier: 0.25
   keystone:
-    charm: cs:~openstack-charmers-next/keystone
+    charm: cs:keystone
     num_units: 1
     options:
       admin-password: openstack
       worker-multiplier: 0.25
   mysql:
-    charm: cs:~openstack-charmers-next/percona-cluster
+    charm: cs:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
   mysql-cell2:
-    charm: cs:~openstack-charmers-next/percona-cluster
+    charm: cs:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
   neutron-api:
-    charm: cs:~openstack-charmers-next/neutron-api
+    charm: cs:neutron-api
     num_units: 1
     options:
       flat-network-providers: physnet1
       neutron-security-groups: true
       worker-multiplier: 0.25
   neutron-gateway:
-    charm: cs:~openstack-charmers-next/neutron-gateway
+    charm: cs:neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
       worker-multiplier: 0.25
   neutron-openvswitch:
-    charm: cs:~openstack-charmers-next/neutron-openvswitch
+    charm: cs:neutron-openvswitch
     num_units: 0
   nova-cloud-controller:
-    charm: cs:~openstack-charmers-next/nova-cloud-controller
+    charm: cs:nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
@@ -116,7 +116,7 @@ applications:
       debug: true
       cell-name: "cell2"
   nova-compute-cell2:
-    charm: cs:~openstack-charmers-next/nova-compute
+    charm: cs:nova-compute
     num_units: 1
     constraints: mem=4G
     options:
@@ -130,11 +130,11 @@ applications:
     charm: cs:ntp-24
     num_units: 0
   rabbitmq-server-nova:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:rabbitmq-server
     num_units: 1
   rabbitmq-server-nova-cell2:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:rabbitmq-server
     num_units: 1
   rabbitmq-server-neutron:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:rabbitmq-server
     num_units: 1
