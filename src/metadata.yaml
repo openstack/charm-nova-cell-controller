@@ -22,7 +22,7 @@ tags:
   - openstack
 series:
   - bionic
-  - cosmic
+  - eoan
   - disco
 extra-bindings:
   public:
