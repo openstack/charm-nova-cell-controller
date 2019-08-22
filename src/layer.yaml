@@ -6,4 +6,5 @@ includes:
   - interface:nova-cell
 options:
   basic:
-    use_venv: true
+    use_venv: True
+    include_system_packages: False
