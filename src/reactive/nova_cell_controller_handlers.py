@@ -17,6 +17,7 @@ from __future__ import absolute_import
 
 import charms.reactive as reactive
 import charmhelpers.core.hookenv as hookenv
+import charmhelpers.contrib.openstack.utils as os_utils
 
 import charms_openstack.charm as charm
 
@@ -43,6 +44,15 @@ charm.use_defaults(
     'update-status')
 
 
+@reactive.when('identity-credentials.connected')
+def request_credentials():
+    keystone_relation = endpoint_from_flag(
+        'identity-credentials.connected')
+    keystone_relation.request_credentials(
+        'nova-cell-controller',
+        project='services')
+
+
 # Note that because of the way reactive.when works, (which is to 'find' the
 # __code__ segment of the decorated function, it's very, very difficult to add
 # other kinds of decorators here.  This rules out adding other things into the
@@ -56,9 +66,20 @@ def render_stuff(*args):
     """
     hookenv.log("about to call the render_configs with {}".format(args))
     with charm.provide_charm_instance() as nova_cell_controller_charm:
-        nova_cell_controller_charm.render_with_interfaces(args)
-        nova_cell_controller_charm.assess_status()
-        set_flag('config.rendered')
+        source_config_key = nova_cell_controller_charm.source_config_key
+        release = os_utils.get_os_codename_install_source(
+            nova_cell_controller_charm.config[source_config_key])
+        auth_endpoint = (
+            endpoint_from_flag('identity-credentials.available.auth'))
+        if ((os_utils.OPENSTACK_RELEASES.index(release) <
+                os_utils.OPENSTACK_RELEASES.index('train')) or
+                auth_endpoint):
+            interfaces = args
+            if auth_endpoint:
+                interfaces = (*args, auth_endpoint)
+            nova_cell_controller_charm.render_with_interfaces(interfaces)
+            nova_cell_controller_charm.assess_status()
+            set_flag('config.rendered')
 
 
 @reactive.when_not('shared-db.synced')

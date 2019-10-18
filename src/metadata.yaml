@@ -43,6 +43,8 @@ requires:
     interface: nova-compute
   nova-cell-compute:
     interface: nova-cell
+  identity-credentials:
+    interface: keystone-credentials
 peers:
   cluster:
     interface: nova-ha

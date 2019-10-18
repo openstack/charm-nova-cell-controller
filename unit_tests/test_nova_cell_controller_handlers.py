@@ -43,7 +43,9 @@ class TestRegisteredHooks(test_utils.TestRegisteredHooks):
                 'send_cell_data': (
                     'shared-db.available',
                     'endpoint.nova-cell-compute.joined',
-                    'amqp.available',)},
+                    'amqp.available',),
+                'request_credentials': (
+                    'identity-credentials.connected',)},
             'when_not': {
                 'db_setup': ('shared-db.synced',)}
         }
@@ -54,7 +56,7 @@ class TestRegisteredHooks(test_utils.TestRegisteredHooks):
 
 class TestRenderStuff(test_utils.PatchHelper):
 
-    def bob(self):
+    def bob(self, release='mitaka'):
         self.ncc_charm = mock.MagicMock()
         self.patch_object(handlers.charm, 'provide_charm_instance',
                           new=mock.MagicMock())
@@ -63,9 +65,14 @@ class TestRenderStuff(test_utils.PatchHelper):
 
         self.patch_object(handlers, 'set_flag')
         self.patch_object(handlers.hookenv, 'config')
+        self.patch_object(handlers.os_utils, 'get_os_codename_install_source')
         self.mock_nc_ep = mock.MagicMock()
         self.mock_ncc_ep = mock.MagicMock()
         self.mock_amqp_ep = mock.MagicMock()
+        self.mock_cred_conn_ep = mock.MagicMock()
+        self.mock_cred_avail_ep = None
+        if release == 'train':
+            self.mock_cred_avail_ep = 'arg3'
         self.mock_db_ep = mock.MagicMock()
 
         def _endpoint_from_flag(ep):
@@ -74,16 +81,34 @@ class TestRenderStuff(test_utils.PatchHelper):
                 'endpoint.nova-cell-compute.joined': self.mock_ncc_ep,
                 'endpoint.nova-cell-compute.changed': self.mock_ncc_ep,
                 'amqp.available': self.mock_amqp_ep,
+                'identity-credentials.connected': self.mock_cred_conn_ep,
+                'identity-credentials.available.auth': self.mock_cred_avail_ep,
                 'shared-db.available': self.mock_db_ep}
             return mocks[ep]
         self.patch_object(handlers, 'endpoint_from_flag',
                           side_effect=_endpoint_from_flag)
 
-    def test_render_stuff(self):
+    def test_request_credentials(self):
         self.bob()
+        handlers.request_credentials()
+        self.mock_cred_conn_ep.request_credentials.assert_called_with(
+            'nova-cell-controller',
+            project='services')
+
+    def test_render_stuff(self):
+        self.bob(release='stein')
+        self.get_os_codename_install_source.return_value = 'stein'
         handlers.render_stuff('arg1', 'arg2')
         self.ncc_charm.render_with_interfaces.assert_called_once_with(
             ('arg1', 'arg2'))
+        self.ncc_charm.assess_status.assert_called_once_with()
+        self.set_flag.assert_called_once_with('config.rendered')
+
+        self.bob(release='train')
+        self.get_os_codename_install_source.return_value = 'train'
+        handlers.render_stuff('arg1', 'arg2')
+        self.ncc_charm.render_with_interfaces.assert_called_once_with(
+            ('arg1', 'arg2', 'arg3'))
         self.ncc_charm.assess_status.assert_called_once_with()
         self.set_flag.assert_called_once_with('config.rendered')
 

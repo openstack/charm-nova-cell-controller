@@ -64,6 +64,8 @@ class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
             ('16', 'pike'),
             ('17', 'queens'),
             ('18', 'rocky'),
+            ('19', 'stein'),
+            ('20', 'train'),
         ]),
     }
 
@@ -108,3 +110,14 @@ class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
             required_relations = self.required_relations
         return super(NovaCellControllerCharm, self).states_to_check(
             required_relations=required_relations)
+
+
+class NovaCellControllerCharmTrain(NovaCellControllerCharm):
+    """From train onwards, identity-credentials is a required relation.
+    As of train, the nova.conf template uses section-placement which
+    renders config values from identity-credentials."""
+
+    # This charms support Train and onward
+    release = 'train'
+
+    required_relations = ['shared-db', 'amqp', 'identity-credentials']
