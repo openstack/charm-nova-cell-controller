@@ -4,6 +4,7 @@ includes:
   - interface:rabbitmq
   - interface:nova-compute
   - interface:nova-cell
+  - interface:keystone-credentials
 options:
   basic:
     use_venv: True
