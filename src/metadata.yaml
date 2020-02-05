@@ -23,7 +23,6 @@ tags:
 series:
   - bionic
   - eoan
-  - disco
 extra-bindings:
   public:
   admin:
