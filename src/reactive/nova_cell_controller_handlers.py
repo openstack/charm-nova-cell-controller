@@ -41,6 +41,7 @@ charm.use_defaults(
     'amqp.connected',
     'shared-db.connected',
     'config.changed',
+    'cluster.available',
     'update-status')
 
 
