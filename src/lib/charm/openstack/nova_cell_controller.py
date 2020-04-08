@@ -120,4 +120,7 @@ class NovaCellControllerCharmTrain(NovaCellControllerCharm):
     # This charms support Train and onward
     release = 'train'
 
+    # Python version used to execute installed workload
+    python_version = 3
+
     required_relations = ['shared-db', 'amqp', 'identity-credentials']

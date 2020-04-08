@@ -23,6 +23,7 @@ tags:
 series:
   - bionic
   - eoan
+  - focal
 extra-bindings:
   public:
   admin:
