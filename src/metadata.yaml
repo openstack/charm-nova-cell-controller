@@ -2,28 +2,29 @@ name: nova-cell-controller
 summary: OpenStack Compute - Nova cloud controller for a cell.
 maintainer: OpenStack Charmers <openstack-charmers@lists.ubuntu.com>
 description: |
- OpenStack is a reliable cloud infrastructure. Its mission is to produce
- the ubiquitous cloud computing platform that will meet the needs of public
- and private cloud providers regardless of size, by being simple to implement
- and massively scalable.
- .
- OpenStack Compute, codenamed Nova, is a cloud computing fabric controller. In
- addition to its "native" API (the OpenStack API), it also supports the Amazon
- EC2 API.
- .
- This charm provides the cloud controller service for the OpenStack Nova cell
- and includes the nova-conductor service.
- .
- OpenStack Rocky or later is required for the Nova cells feature.
- .
- See usage guidance as published in the charm deployment guide:
-   * https://docs.openstack.org/project-deploy-guide/charm-deployment-guide/latest/app-nova-cells.html
+  OpenStack is a reliable cloud infrastructure. Its mission is to produce
+  the ubiquitous cloud computing platform that will meet the needs of public
+  and private cloud providers regardless of size, by being simple to implement
+  and massively scalable.
+  .
+  OpenStack Compute, codenamed Nova, is a cloud computing fabric controller. In
+  addition to its "native" API (the OpenStack API), it also supports the Amazon
+  EC2 API.
+  .
+  This charm provides the cloud controller service for the OpenStack Nova cell
+  and includes the nova-conductor service.
+  .
+  OpenStack Rocky or later is required for the Nova cells feature.
+  .
+  See usage guidance as published in the charm deployment guide:
+    * https://docs.openstack.org/project-deploy-guide/charm-deployment-guide/latest/app-nova-cells.html
 tags:
-  - openstack
+- openstack
 series:
-  - bionic
-  - eoan
-  - focal
+- bionic
+- eoan
+- focal
+- groovy
 extra-bindings:
   public:
   admin:
