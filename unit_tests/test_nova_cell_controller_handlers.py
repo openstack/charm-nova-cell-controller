@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import mock
+from unittest import mock
 
 import reactive.nova_cell_controller_handlers as handlers
 
