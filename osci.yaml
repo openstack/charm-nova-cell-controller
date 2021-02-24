@@ -1,0 +1,14 @@
+- project:
+    templates:
+      - charm-unit-jobs
+    check:
+      jobs:
+      - groovy-victoria
+      - focal-victoria
+      - focal-ussuri
+      - bionic-ussuri
+      - bionic-train
+      - bionic-stein
+    vars:
+      needs_charm_build: true
+      charm_build_name: nova-cell-controller
