@@ -12,6 +12,7 @@ configure:
 
 gate_bundles:
   - groovy-victoria
+  - focal-wallaby
   - focal-victoria
   - focal-ussuri
   - bionic-ussuri
@@ -19,6 +20,7 @@ gate_bundles:
   - bionic-stein
 
 dev_bundles:
+  - hirsute-wallaby
   - bionic-rocky
 
 smoke_bundles:
@@ -26,4 +28,4 @@ smoke_bundles:
 
 tests_options:
   force_deploy:
-    - groovy-victoria
+    - hirsute-wallaby
