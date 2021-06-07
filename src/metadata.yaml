@@ -25,6 +25,7 @@ series:
 - focal
 - groovy
 - hirsute
+- impish
 extra-bindings:
   public:
   admin:
@@ -49,4 +50,3 @@ requires:
 peers:
   cluster:
     interface: nova-ha
-
