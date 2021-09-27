@@ -3,8 +3,12 @@
       - charm-unit-jobs
     check:
       jobs:
+      - impish-xena:
+          voting: false
       - hirsute-wallaby
       - groovy-victoria
+      - focal-xena:
+          voting: false
       - focal-wallaby
       - focal-victoria
       - focal-ussuri
