@@ -35,22 +35,28 @@ machines:
 applications:
 
   keystone-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
+    channel: candidate
   neutron-api-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
+    channel: candidate
   glance-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
+    channel: candidate
   nova-cloud-controller-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
+    channel: candidate
   nova-cell-controller-cell2-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
     options:
       base-port: 3316
+    channel: candidate
   placement-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:~openstack-charmers/mysql-router
+    channel: candidate
 
   mysql-innodb-cluster:
-    charm: cs:~openstack-charmers-next/mysql-innodb-cluster
+    charm: cs:~openstack-charmers/mysql-innodb-cluster
     num_units: 3
     options:
       source: *openstack-origin
@@ -58,9 +64,10 @@ applications:
       - '0'
       - '1'
       - '2'
+    channel: candidate
 
   mysql-innodb-cluster-cell2:
-    charm: cs:~openstack-charmers-next/mysql-innodb-cluster
+    charm: cs:~openstack-charmers/mysql-innodb-cluster
     num_units: 3
     options:
       source: *openstack-origin
@@ -68,18 +75,20 @@ applications:
       - '3'
       - '4'
       - '5'
+    channel: candidate
 
   glance:
-    charm: cs:~openstack-charmers-next/glance
+    charm: cs:~openstack-charmers/glance
     num_units: 1
     options:
       openstack-origin: *openstack-origin
       worker-multiplier: 0.25
     to:
       - '6'
+    channel: candidate
 
   keystone:
-    charm: cs:~openstack-charmers-next/keystone
+    charm: cs:~openstack-charmers/keystone
     num_units: 1
     options:
       admin-password: openstack
@@ -87,9 +96,10 @@ applications:
       worker-multiplier: 0.25
     to:
       - '7'
+    channel: candidate
 
   neutron-api:
-    charm: cs:~openstack-charmers-next/neutron-api
+    charm: cs:~openstack-charmers/neutron-api
     num_units: 1
     options:
       manage-neutron-plugin-legacy-mode: true
@@ -100,9 +110,10 @@ applications:
       worker-multiplier: 0.25
     to:
       - '8'
+    channel: candidate
 
   neutron-gateway:
-    charm: cs:~openstack-charmers-next/neutron-gateway
+    charm: cs:~openstack-charmers/neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
@@ -110,13 +121,15 @@ applications:
       worker-multiplier: 0.25
     to:
       - '9'
+    channel: candidate
 
   neutron-openvswitch:
-    charm: cs:~openstack-charmers-next/neutron-openvswitch
+    charm: cs:~openstack-charmers/neutron-openvswitch
     num_units: 0
+    channel: candidate
 
   nova-cloud-controller:
-    charm: cs:~openstack-charmers-next/nova-cloud-controller
+    charm: cs:~openstack-charmers/nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
@@ -125,6 +138,7 @@ applications:
       debug: true
     to:
       - '10'
+    channel: candidate
 
   nova-cell-controller-cell2:
     charm: nova-cell-controller
@@ -138,7 +152,7 @@ applications:
       - '11'
 
   nova-compute-cell2:
-    charm: cs:~openstack-charmers-next/nova-compute
+    charm: cs:~openstack-charmers/nova-compute
     num_units: 1
     storage:
       ephemeral-device: '40G'
@@ -150,33 +164,38 @@ applications:
       debug: true
     to:
       - '12'
+    channel: candidate
 
   rabbitmq-server-nova:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '13'
+    channel: candidate
 
   rabbitmq-server-nova-cell2:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '14'
+    channel: candidate
 
   rabbitmq-server-neutron:
-    charm: cs:~openstack-charmers-next/rabbitmq-server
+    charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '15'
+    channel: candidate
 
   placement:
-    charm: cs:~openstack-charmers-next/placement
+    charm: cs:~openstack-charmers/placement
     num_units: 1
     options:
       openstack-origin: *openstack-origin
       debug: true
     to:
       - '16'
+    channel: candidate
 
 relations:
 
