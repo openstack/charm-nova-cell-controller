@@ -36,24 +36,18 @@ applications:
 
   keystone-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
-    channel: candidate
   neutron-api-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
-    channel: candidate
   glance-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
-    channel: candidate
   nova-cloud-controller-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
-    channel: candidate
   nova-cell-controller-cell2-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
     options:
       base-port: 3316
-    channel: candidate
   placement-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
-    channel: candidate
 
   mysql-innodb-cluster:
     charm: cs:~openstack-charmers/mysql-innodb-cluster
@@ -64,7 +58,6 @@ applications:
       - '0'
       - '1'
       - '2'
-    channel: candidate
 
   mysql-innodb-cluster-cell2:
     charm: cs:~openstack-charmers/mysql-innodb-cluster
@@ -75,7 +68,6 @@ applications:
       - '3'
       - '4'
       - '5'
-    channel: candidate
 
   glance:
     charm: cs:~openstack-charmers/glance
@@ -85,7 +77,6 @@ applications:
       worker-multiplier: 0.25
     to:
       - '6'
-    channel: candidate
 
   keystone:
     charm: cs:~openstack-charmers/keystone
@@ -96,7 +87,6 @@ applications:
       worker-multiplier: 0.25
     to:
       - '7'
-    channel: candidate
 
   neutron-api:
     charm: cs:~openstack-charmers/neutron-api
@@ -110,7 +100,6 @@ applications:
       worker-multiplier: 0.25
     to:
       - '8'
-    channel: candidate
 
   neutron-gateway:
     charm: cs:~openstack-charmers/neutron-gateway
@@ -121,12 +110,10 @@ applications:
       worker-multiplier: 0.25
     to:
       - '9'
-    channel: candidate
 
   neutron-openvswitch:
     charm: cs:~openstack-charmers/neutron-openvswitch
     num_units: 0
-    channel: candidate
 
   nova-cloud-controller:
     charm: cs:~openstack-charmers/nova-cloud-controller
@@ -138,7 +125,6 @@ applications:
       debug: true
     to:
       - '10'
-    channel: candidate
 
   nova-cell-controller-cell2:
     charm: nova-cell-controller
@@ -164,28 +150,24 @@ applications:
       debug: true
     to:
       - '12'
-    channel: candidate
 
   rabbitmq-server-nova:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '13'
-    channel: candidate
 
   rabbitmq-server-nova-cell2:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '14'
-    channel: candidate
 
   rabbitmq-server-neutron:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
     to:
       - '15'
-    channel: candidate
 
   placement:
     charm: cs:~openstack-charmers/placement
@@ -195,7 +177,6 @@ applications:
       debug: true
     to:
       - '16'
-    channel: candidate
 
 relations:
 

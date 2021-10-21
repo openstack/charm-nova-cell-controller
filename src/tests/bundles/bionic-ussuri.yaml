@@ -75,7 +75,6 @@ applications:
     options:
       openstack-origin: cloud:bionic-ussuri
       worker-multiplier: 0.25
-    channel: candidate
   keystone:
     charm: cs:~openstack-charmers/keystone
     num_units: 1
@@ -83,21 +82,18 @@ applications:
       admin-password: openstack
       openstack-origin: cloud:bionic-ussuri
       worker-multiplier: 0.25
-    channel: candidate
   mysql:
     charm: cs:~openstack-charmers/percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
-    channel: candidate
   mysql-cell2:
     charm: cs:~openstack-charmers/percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
-    channel: candidate
   neutron-api:
     charm: cs:~openstack-charmers/neutron-api
     num_units: 1
@@ -108,7 +104,6 @@ applications:
       neutron-security-groups: true
       openstack-origin: cloud:bionic-ussuri
       worker-multiplier: 0.25
-    channel: candidate
   neutron-gateway:
     charm: cs:~openstack-charmers/neutron-gateway
     num_units: 1
@@ -116,11 +111,9 @@ applications:
       bridge-mappings: physnet1:br-ex
       openstack-origin: cloud:bionic-ussuri
       worker-multiplier: 0.25
-    channel: candidate
   neutron-openvswitch:
     charm: cs:~openstack-charmers/neutron-openvswitch
     num_units: 0
-    channel: candidate
   nova-cloud-controller:
     charm: cs:~openstack-charmers/nova-cloud-controller
     num_units: 1
@@ -129,7 +122,6 @@ applications:
       openstack-origin: cloud:bionic-ussuri
       worker-multiplier: 0.25
       debug: true
-    channel: candidate
   nova-cell-controller-cell2:
     charm: nova-cell-controller
     series: bionic
@@ -150,22 +142,18 @@ applications:
       migration-auth-type: ssh
       openstack-origin: cloud:bionic-ussuri
       debug: true
-    channel: candidate
   ntp:
     charm: cs:ntp-24
     num_units: 0
   rabbitmq-server-nova:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
-    channel: candidate
   rabbitmq-server-nova-cell2:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
-    channel: candidate
   rabbitmq-server-neutron:
     charm: cs:~openstack-charmers/rabbitmq-server
     num_units: 1
-    channel: candidate
   placement:
     charm: cs:~openstack-charmers/placement
     num_units: 1
@@ -173,4 +161,3 @@ applications:
     options:
       openstack-origin: cloud:bionic-ussuri
       debug: true
-    channel: candidate
