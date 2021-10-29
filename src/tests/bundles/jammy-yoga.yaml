@@ -1,0 +1,289 @@
+variables:
+  openstack-origin: &openstack-origin distro
+
+series: jammy
+
+comment:
+  - 'machines section to decide order of deployment. database sooner = faster'
+
+machines:
+  '0':
+    constraints: virt-type=kvm mem=3072M
+  '1':
+    constraints: virt-type=kvm mem=3072M
+  '2':
+    constraints: virt-type=kvm mem=3072M
+  '3':
+    constraints: virt-type=kvm mem=3072M
+  '4':
+    constraints: virt-type=kvm mem=3072M
+  '5':
+    constraints: virt-type=kvm mem=3072M
+  '6':
+  '7':
+  '8':
+  '9':
+  '10':
+  '11':
+  '12':
+    constraints: mem=4096M
+  '13':
+  '14':
+  '15':
+  '16':
+
+applications:
+
+  keystone-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  neutron-api-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  glance-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  nova-cloud-controller-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  nova-cell-controller-cell2-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+    options:
+      base-port: 3316
+  placement-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+
+  mysql-innodb-cluster:
+    charm: cs:~openstack-charmers-next/mysql-innodb-cluster
+    num_units: 3
+    options:
+      source: *openstack-origin
+    to:
+      - '0'
+      - '1'
+      - '2'
+
+  mysql-innodb-cluster-cell2:
+    charm: cs:~openstack-charmers-next/mysql-innodb-cluster
+    num_units: 3
+    options:
+      source: *openstack-origin
+    to:
+      - '3'
+      - '4'
+      - '5'
+
+  glance:
+    charm: cs:~openstack-charmers-next/glance
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+    to:
+      - '6'
+
+  keystone:
+    charm: cs:~openstack-charmers-next/keystone
+    num_units: 1
+    options:
+      admin-password: openstack
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+    to:
+      - '7'
+
+  neutron-api:
+    charm: cs:~openstack-charmers-next/neutron-api
+    num_units: 1
+    options:
+      manage-neutron-plugin-legacy-mode: true
+      neutron-plugin: ovs
+      flat-network-providers: physnet1
+      neutron-security-groups: true
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+    to:
+      - '8'
+
+  neutron-gateway:
+    charm: cs:~openstack-charmers-next/neutron-gateway
+    num_units: 1
+    options:
+      bridge-mappings: physnet1:br-ex
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+    to:
+      - '9'
+
+  neutron-openvswitch:
+    charm: cs:~openstack-charmers-next/neutron-openvswitch
+    num_units: 0
+
+  nova-cloud-controller:
+    charm: cs:~openstack-charmers-next/nova-cloud-controller
+    num_units: 1
+    options:
+      network-manager: Neutron
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+      debug: true
+    to:
+      - '10'
+
+  nova-cell-controller-cell2:
+    charm: nova-cell-controller
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+      worker-multiplier: 0.25
+      debug: true
+      cell-name: "cell2"
+    to:
+      - '11'
+
+  nova-compute-cell2:
+    charm: cs:~openstack-charmers-next/nova-compute
+    num_units: 1
+    storage:
+      ephemeral-device: '40G'
+    options:
+      enable-live-migration: true
+      enable-resize: true
+      migration-auth-type: ssh
+      openstack-origin: *openstack-origin
+      debug: true
+    to:
+      - '12'
+
+  rabbitmq-server-nova:
+    charm: cs:~openstack-charmers-next/rabbitmq-server
+    num_units: 1
+    to:
+      - '13'
+
+  rabbitmq-server-nova-cell2:
+    charm: cs:~openstack-charmers-next/rabbitmq-server
+    num_units: 1
+    to:
+      - '14'
+
+  rabbitmq-server-neutron:
+    charm: cs:~openstack-charmers-next/rabbitmq-server
+    num_units: 1
+    to:
+      - '15'
+
+  placement:
+    charm: cs:~openstack-charmers-next/placement
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+      debug: true
+    to:
+      - '16'
+
+relations:
+
+  - - 'nova-cloud-controller:nova-cell-api'
+    - 'nova-cell-controller-cell2:nova-cell-compute'
+
+  - - 'nova-cloud-controller:shared-db-cell'
+    - 'nova-cell-controller-cell2-mysql-router:shared-db'
+
+  - - 'nova-cloud-controller:amqp-cell'
+    - 'rabbitmq-server-nova-cell2:amqp'
+
+  - - 'nova-compute-cell2:amqp'
+    - 'rabbitmq-server-nova-cell2:amqp'
+
+  - - 'neutron-gateway:amqp'
+    - 'rabbitmq-server-neutron:amqp'
+
+  - - 'neutron-gateway:amqp-nova'
+    - 'rabbitmq-server-nova:amqp'
+
+  - - 'keystone:shared-db'
+    - 'keystone-mysql-router:shared-db'
+  - - 'keystone-mysql-router:db-router'
+    - 'mysql-innodb-cluster:db-router'
+
+  - - 'nova-cloud-controller:identity-service'
+    - 'keystone:identity-service'
+
+  - - 'glance:identity-service'
+    - 'keystone:identity-service'
+
+  - - 'neutron-api:identity-service'
+    - 'keystone:identity-service'
+
+  - - 'neutron-openvswitch:neutron-plugin-api'
+    - 'neutron-api:neutron-plugin-api'
+
+  - - 'neutron-api:shared-db'
+    - 'neutron-api-mysql-router:shared-db'
+  - - 'neutron-api-mysql-router:db-router'
+    - 'mysql-innodb-cluster:db-router'
+
+  - - 'neutron-api:amqp'
+    - 'rabbitmq-server-neutron:amqp'
+
+  - - 'neutron-gateway:neutron-plugin-api'
+    - 'neutron-api:neutron-plugin-api'
+
+  - - 'glance:shared-db'
+    - 'glance-mysql-router:shared-db'
+  - - 'glance-mysql-router:db-router'
+    - 'mysql-innodb-cluster:db-router'
+
+  - - 'glance:amqp'
+    - 'rabbitmq-server-neutron:amqp'
+
+  - - 'nova-cloud-controller:image-service'
+    - 'glance:image-service'
+
+  - - 'nova-compute-cell2:image-service'
+    - 'glance:image-service'
+
+  - - 'nova-cell-controller-cell2:cloud-compute'
+    - 'nova-compute-cell2:cloud-compute'
+
+  - - 'nova-cell-controller-cell2:identity-credentials'
+    - 'keystone:identity-credentials'
+
+  - - 'nova-cloud-controller:amqp'
+    - 'rabbitmq-server-nova:amqp'
+
+  - - 'nova-cell-controller-cell2:amqp'
+    - 'rabbitmq-server-nova-cell2:amqp'
+
+  - - 'nova-cloud-controller:quantum-network-service'
+    - 'neutron-gateway:quantum-network-service'
+
+  - - 'nova-compute-cell2:neutron-plugin'
+    - 'neutron-openvswitch:neutron-plugin'
+
+  - - 'neutron-openvswitch:amqp'
+    - 'rabbitmq-server-neutron:amqp'
+
+  - - 'nova-cloud-controller:shared-db'
+    - 'nova-cloud-controller-mysql-router:shared-db'
+  - - 'nova-cloud-controller-mysql-router:db-router'
+    - 'mysql-innodb-cluster:db-router'
+
+  - - 'nova-cell-controller-cell2:shared-db'
+    - 'nova-cell-controller-cell2-mysql-router:shared-db'
+  - - 'nova-cell-controller-cell2-mysql-router:db-router'
+    - 'mysql-innodb-cluster-cell2:db-router'
+
+  - - 'nova-cloud-controller:neutron-api'
+    - 'neutron-api:neutron-api'
+
+  - - 'nova-compute-cell2:cloud-credentials'
+    - 'keystone:identity-credentials'
+
+  - - 'placement:identity-service'
+    - 'keystone:identity-service'
+
+  - - 'placement:shared-db'
+    - 'placement-mysql-router:shared-db'
+  - - 'placement-mysql-router:db-router'
+    - 'mysql-innodb-cluster:db-router'
+
+  - - 'nova-cloud-controller:placement'
+    - 'placement:placement'

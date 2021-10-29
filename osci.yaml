@@ -1,20 +1,22 @@
 - project:
     templates:
-      - charm-unit-jobs
+      - charm-yoga-unit-jobs
+      - charm-yoga-functional-jobs
+      # focal-xena fails due to:
+      # https://bugs.launchpad.net/charm-nova-cell-controller/+bug/1951874
+      # - charm-xena-functional-jobs
+      - charm-wallaby-functional-jobs
+      - charm-victoria-functional-jobs
+      - charm-ussuri-functional-jobs
+      - charm-stein-functional-jobs
     check:
       jobs:
-      - impish-xena:
-          voting: false
-      - hirsute-wallaby
-      - groovy-victoria
-      - focal-xena:
-          voting: false
-      - focal-wallaby
-      - focal-victoria
-      - focal-ussuri
-      - bionic-ussuri
-      - bionic-train
-      - bionic-stein
+        # focal-xena fails due to:
+        # https://bugs.launchpad.net/charm-nova-cell-controller/+bug/1951874
+        - focal-xena:
+            voting: false
+        - impish-xena:
+            voting: false
     vars:
       needs_charm_build: true
       charm_build_name: nova-cell-controller
