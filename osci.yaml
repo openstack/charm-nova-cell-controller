@@ -1,14 +1,11 @@
 - project:
     templates:
-      - charm-yoga-unit-jobs
-      - charm-yoga-functional-jobs
+      - charm-unit-jobs-py38
+      - charm-unit-jobs-py39
       # focal-xena fails due to:
       # https://bugs.launchpad.net/charm-nova-cell-controller/+bug/1951874
       # - charm-xena-functional-jobs
-      - charm-wallaby-functional-jobs
-      - charm-victoria-functional-jobs
-      - charm-ussuri-functional-jobs
-      - charm-stein-functional-jobs
+      - charm-yoga-functional-jobs
     check:
       jobs:
         # focal-xena fails due to:
