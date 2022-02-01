@@ -1,6 +1,8 @@
 variables:
   openstack-origin: &openstack-origin cloud:focal-xena
 
+local_overlay_enabled: False
+
 series: focal
 
 comment:
@@ -85,7 +87,7 @@ applications:
       worker-multiplier: 0.25
     to:
       - '6'
-    channel: latest/edge
+    channel: yoga/edge
 
   keystone:
     charm: ch:keystone
@@ -96,7 +98,7 @@ applications:
       worker-multiplier: 0.25
     to:
       - '7'
-    channel: latest/edge
+    channel: yoga/edge
 
   neutron-api:
     charm: ch:neutron-api
@@ -110,7 +112,7 @@ applications:
       worker-multiplier: 0.25
     to:
       - '8'
-    channel: latest/edge
+    channel: yoga/edge
 
   neutron-gateway:
     charm: ch:neutron-gateway
@@ -121,12 +123,12 @@ applications:
       worker-multiplier: 0.25
     to:
       - '9'
-    channel: latest/edge
+    channel: yoga/edge
 
   neutron-openvswitch:
     charm: ch:neutron-openvswitch
     num_units: 0
-    channel: latest/edge
+    channel: yoga/edge
 
   nova-cloud-controller:
     charm: ch:nova-cloud-controller
@@ -138,10 +140,10 @@ applications:
       debug: true
     to:
       - '10'
-    channel: latest/edge
+    channel: yoga/edge
 
   nova-cell-controller-cell2:
-    charm: nova-cell-controller
+    charm: ../../../nova-cell-controller.charm
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -164,7 +166,7 @@ applications:
       debug: true
     to:
       - '12'
-    channel: latest/edge
+    channel: yoga/edge
 
   rabbitmq-server-nova:
     charm: ch:rabbitmq-server
@@ -195,7 +197,7 @@ applications:
       debug: true
     to:
       - '16'
-    channel: latest/edge
+    channel: yoga/edge
 
 relations:
 
