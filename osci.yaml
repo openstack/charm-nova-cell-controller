@@ -1,20 +1,12 @@
 - project:
     templates:
-      - charm-unit-jobs
+      - charm-unit-jobs-py38
     check:
       jobs:
-      - impish-xena:
-          voting: false
-      - hirsute-wallaby
-      - groovy-victoria
       - focal-xena:
           voting: false
       - focal-wallaby
-      - focal-victoria
-      - focal-ussuri
-      - bionic-ussuri
-      - bionic-train
-      - bionic-stein
     vars:
       needs_charm_build: true
       charm_build_name: nova-cell-controller
+      build_type: charmcraft
