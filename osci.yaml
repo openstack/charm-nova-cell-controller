@@ -3,8 +3,7 @@
       - charm-unit-jobs-py38
     check:
       jobs:
-      - focal-xena:
-          voting: false
+      - focal-xena
       - focal-wallaby
     vars:
       needs_charm_build: true

@@ -38,24 +38,24 @@ applications:
 
   keystone-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   neutron-api-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   glance-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   nova-cloud-controller-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   nova-cell-controller-cell2-mysql-router:
     charm: ch:mysql-router
     options:
       base-port: 3316
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   placement-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
 
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
@@ -66,7 +66,7 @@ applications:
       - '0'
       - '1'
       - '2'
-    channel: 8.0.19/edge
+    channel: 8.0/edge
 
   mysql-innodb-cluster-cell2:
     charm: ch:mysql-innodb-cluster
@@ -77,7 +77,7 @@ applications:
       - '3'
       - '4'
       - '5'
-    channel: 8.0.19/edge
+    channel: 8.0/edge
 
   glance:
     charm: ch:glance
