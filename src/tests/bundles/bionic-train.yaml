@@ -1,3 +1,5 @@
+local_overlay_enabled: False
+
 series: bionic
 relations:
 - - nova-cloud-controller:nova-cell-api
@@ -70,58 +72,66 @@ relations:
   - placement:placement
 applications:
   glance:
-    charm: cs:~openstack-charmers/glance
+    charm: ch:glance
     num_units: 1
     options:
       openstack-origin: cloud:bionic-train
       worker-multiplier: 0.25
+    channel: ussuri/edge
   keystone:
-    charm: cs:~openstack-charmers/keystone
+    charm: ch:keystone
     num_units: 1
     options:
       admin-password: openstack
       openstack-origin: cloud:bionic-train
       worker-multiplier: 0.25
+    channel: ussuri/edge
   mysql:
-    charm: cs:~openstack-charmers/percona-cluster
+    charm: ch:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
+    channel: 5.7/edge
   mysql-cell2:
-    charm: cs:~openstack-charmers/percona-cluster
+    charm: ch:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
+    channel: 5.7/edge
   neutron-api:
-    charm: cs:~openstack-charmers/neutron-api
+    charm: ch:neutron-api
     num_units: 1
     options:
       flat-network-providers: physnet1
       neutron-security-groups: true
       openstack-origin: cloud:bionic-train
       worker-multiplier: 0.25
+    channel: ussuri/edge
   neutron-gateway:
-    charm: cs:~openstack-charmers/neutron-gateway
+    charm: ch:neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
       openstack-origin: cloud:bionic-train
       worker-multiplier: 0.25
+    channel: ussuri/edge
   neutron-openvswitch:
-    charm: cs:~openstack-charmers/neutron-openvswitch
+    charm: ch:neutron-openvswitch
     num_units: 0
+    channel: ussuri/edge
   nova-cloud-controller:
-    charm: cs:~openstack-charmers/nova-cloud-controller
+    charm: ch:nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
       openstack-origin: cloud:bionic-train
       worker-multiplier: 0.25
       debug: true
+    channel: ussuri/edge
   nova-cell-controller-cell2:
-    charm: nova-cell-controller
+    charm: ../../../nova-cell-controller.charm
     series: bionic
     num_units: 1
     options:
@@ -130,7 +140,7 @@ applications:
       debug: true
       cell-name: "cell2"
   nova-compute-cell2:
-    charm: cs:~openstack-charmers/nova-compute
+    charm: ch:nova-compute
     num_units: 1
     constraints: mem=4G
     options:
@@ -140,22 +150,27 @@ applications:
       migration-auth-type: ssh
       openstack-origin: cloud:bionic-train
       debug: true
+    channel: ussuri/edge
   ntp:
     charm: cs:ntp-24
     num_units: 0
   rabbitmq-server-nova:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.8/edge
   rabbitmq-server-nova-cell2:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.8/edge
   rabbitmq-server-neutron:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.8/edge
   placement:
-    charm: cs:~openstack-charmers/placement
+    charm: ch:placement
     num_units: 1
     constraints: mem=1G
     options:
       openstack-origin: cloud:bionic-train
       debug: true
+    channel: ussuri/edge

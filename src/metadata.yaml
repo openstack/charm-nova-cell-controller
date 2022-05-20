@@ -23,9 +23,6 @@ tags:
 series:
 - bionic
 - focal
-- groovy
-- hirsute
-- impish
 extra-bindings:
   public:
   admin:
