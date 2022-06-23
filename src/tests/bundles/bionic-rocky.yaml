@@ -62,59 +62,67 @@ relations:
   - neutron-gateway:juju-info
 applications:
   glance:
-    charm: cs:~openstack-charmers/glance
+    charm: ch:glance
     num_units: 1
     options:
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
+    channel: train/edge
   keystone:
-    charm: cs:~openstack-charmers/keystone
+    charm: ch:keystone
     num_units: 1
     options:
       admin-password: openstack
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
+    channel: train/edge
   mysql:
-    charm: cs:~openstack-charmers/percona-cluster
+    charm: ch:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
+    channel: 5.7/edge
   mysql-cell2:
-    charm: cs:~openstack-charmers/percona-cluster
+    charm: ch:percona-cluster
     num_units: 1
     options:
       innodb-buffer-pool-size: 256M
       max-connections: 1000
+    channel: 5.7/edge
   neutron-api:
-    charm: cs:~openstack-charmers/neutron-api
+    charm: ch:neutron-api
     num_units: 1
     options:
       flat-network-providers: physnet1
       neutron-security-groups: true
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
+    channel: train/edge
   neutron-gateway:
-    charm: cs:~openstack-charmers/neutron-gateway
+    charm: ch:neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
+    channel: train/edge
   neutron-openvswitch:
-    charm: cs:~openstack-charmers/neutron-openvswitch
+    charm: ch:neutron-openvswitch
     num_units: 0
+    channel: train/edge
   nova-cloud-controller:
-    charm: cs:~openstack-charmers/nova-cloud-controller
+    charm: ch:nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
       openstack-origin: cloud:bionic-rocky
       worker-multiplier: 0.25
       debug: true
+    channel: train/edge
   nova-cell-controller-cell2:
-    charm: nova-cell-controller
     series: bionic
+    charm: ../../../nova-cell-controller.charm
     num_units: 1
     options:
       openstack-origin: cloud:bionic-rocky
@@ -122,7 +130,7 @@ applications:
       debug: true
       cell-name: "cell2"
   nova-compute-cell2:
-    charm: cs:~openstack-charmers/nova-compute
+    charm: ch:nova-compute
     num_units: 1
     constraints: mem=4G
     options:
@@ -132,15 +140,19 @@ applications:
       migration-auth-type: ssh
       openstack-origin: cloud:bionic-rocky
       debug: true
+    channel: train/edge
   ntp:
     charm: cs:ntp-24
     num_units: 0
   rabbitmq-server-nova:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.6/edge
   rabbitmq-server-nova-cell2:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.6/edge
   rabbitmq-server-neutron:
-    charm: cs:~openstack-charmers/rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
+    channel: 3.6/edge

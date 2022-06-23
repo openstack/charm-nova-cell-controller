@@ -11,23 +11,14 @@ configure:
   - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
 
 gate_bundles:
-  - hirsute-wallaby
-  - focal-wallaby
-  - focal-victoria
-  - focal-ussuri
-  - bionic-ussuri
-  - bionic-train
-  - bionic-stein
-
-dev_bundles:
-  - groovy-victoria
-  - focal-xena
   - bionic-rocky
+  - bionic-stein
+  - bionic-train
+
+dev_bundles: []
 
 smoke_bundles:
   - bionic-train
 
 tests_options:
-  force_deploy:
-    - groovy-victoria
-    - impish-xena
+  force_deploy: []
