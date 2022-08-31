@@ -22,6 +22,7 @@ tags:
 - openstack
 series:
 - jammy
+- kinetic
 extra-bindings:
   public:
   admin:
