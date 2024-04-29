@@ -14,10 +14,8 @@ gate_bundles:
   - jammy-antelope
   - jammy-bobcat
   - jammy-caracal
-dev_bundles:
-  - noble-caracal
+dev_bundles: []
 smoke_bundles:
   - jammy-caracal
 tests_options:
-  force_deploy:
-    - noble-caracal
+  force_deploy: []
