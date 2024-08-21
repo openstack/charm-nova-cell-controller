@@ -61,9 +61,8 @@ def request_credentials():
 @reactive.when('shared-db.available')
 @reactive.when('amqp.available')
 def render_stuff(*args):
-    """Render the configuration for Nova cell controller when all the interfaces
-    are available.
-
+    """Render the configuration for Nova cell controller when all the
+    interfaces are available.
     """
     hookenv.log("about to call the render_configs with {}".format(args))
     with charm.provide_charm_instance() as nova_cell_controller_charm:

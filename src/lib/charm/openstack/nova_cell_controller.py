@@ -34,8 +34,8 @@ charms_openstack.charm.use_defaults('charm.default-select-release')
 
 
 class NovaCellControllerCharm(charms_openstack.charm.HAOpenStackCharm):
-    """NovaCellControllerCharm provides the specialisation of the OpenStackCharm
-    functionality to manage a nova_cell_controller unit.
+    """NovaCellControllerCharm provides the specialisation of the
+    OpenStackCharm functionality to manage a nova_cell_controller unit.
     """
 
     release = 'mitaka'
