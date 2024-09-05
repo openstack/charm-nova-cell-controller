@@ -20,8 +20,6 @@ description: |
     * https://docs.openstack.org/project-deploy-guide/charm-deployment-guide/latest/app-nova-cells.html
 tags:
   - openstack
-series:
-  - jammy
 extra-bindings:
   public:
   admin:
