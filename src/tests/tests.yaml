@@ -15,11 +15,9 @@ gate_bundles:
 
 dev_bundles:
   - jammy-antelope
-  - lunar-antelope
 
 smoke_bundles:
   - jammy-zed
 
 tests_options:
   force_deploy:
-    - lunar-antelope
